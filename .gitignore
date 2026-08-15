@@ -1,0 +1,29 @@
+# Rider / Visual Studio
+.idea/
+.vs/
+*.user
+*.suo
+
+# Build output
+bin/
+obj/
+packages/
+*.dll
+
+# User-specific files
+*.rsuser
+*.userosscache
+*.sln.docstates
+
+# Rider specific
+*.DotSettings.user
+*.pidb
+*.resharper
+_ReSharper.Caches/
+
+# Compiled output
+*.exe
+*.pdb
+*.cache
+*.nupkg
+*.snk
