@@ -1,0 +1,104 @@
+<UserControl x:Class="NikBestCalculator.Views.EngineerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="MinHeight" Value="35"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="BorderBrush" Value="#CCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Дисплей -->
+        <TextBox FontSize="28" FontWeight="Bold" HorizontalContentAlignment="Right" 
+                 VerticalContentAlignment="Center" Height="50" Margin="0,0,0,5"
+                 IsReadOnly="True" Text="{Binding Display}"/>
+
+        <!-- ИСТОРИЯ -->
+        <Border Grid.Row="1" Height="80" Margin="0,0,0,5"
+                Background="#F5F5F5" BorderBrush="#CCC" BorderThickness="1" CornerRadius="4">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding History}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" Margin="5"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#E0E0E0" 
+                                    CornerRadius="4" 
+                                    Margin="3" 
+                                    Padding="8,4"
+                                    BorderBrush="#AAA" 
+                                    BorderThickness="1"
+                                    MouseDown="HistoryItem_MouseDown">
+                                <TextBlock Text="{Binding}" FontSize="12" Foreground="#333"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Кнопки управления историей -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,8">
+            <Button Content="Очистить историю" Command="{Binding ClearHistoryCommand}" MinWidth="140" Height="28" Background="#E0E0E0" Padding="10,0"/>
+            <TextBlock Text="(двойной клик по записи — удалить)" Foreground="Gray" FontSize="11" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <!-- Кнопки инженерного режима -->
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="sin" Grid.Row="0" Grid.Column="0" Command="{Binding SinCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="cos" Grid.Row="0" Grid.Column="1" Command="{Binding CosCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="tan" Grid.Row="0" Grid.Column="2" Command="{Binding TanCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="π" Grid.Row="0" Grid.Column="3" Command="{Binding PiCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="e" Grid.Row="0" Grid.Column="4" Command="{Binding ECommand}" Margin="2" MinHeight="30"/>
+
+            <Button Content="log" Grid.Row="1" Grid.Column="0" Command="{Binding LogCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="ln" Grid.Row="1" Grid.Column="1" Command="{Binding LnCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="x²" Grid.Row="1" Grid.Column="2" Command="{Binding SquareCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="x³" Grid.Row="1" Grid.Column="3" Command="{Binding CubeCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="x^y" Grid.Row="1" Grid.Column="4" Command="{Binding PowerCommand}" Margin="2" MinHeight="30"/>
+
+            <Button Content="!" Grid.Row="2" Grid.Column="0" Command="{Binding FactorialCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="1/x" Grid.Row="2" Grid.Column="1" Command="{Binding InvertCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="√" Grid.Row="2" Grid.Column="2" Command="{Binding SqrtCommand}" Margin="2" MinHeight="30"/>
+
+            <Button Content="7" Grid.Row="3" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="7" Margin="2" MinHeight="30"/>
+            <Button Content="8" Grid.Row="3" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="8" Margin="2" MinHeight="30"/>
+            <Button Content="9" Grid.Row="3" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="9" Margin="2" MinHeight="30"/>
+            <Button Content="/" Grid.Row="3" Grid.Column="3" Command="{Binding OperationCommand}" CommandParameter="/" Margin="2" MinHeight="30" Background="#4CAF50" Foreground="White"/>
+            <Button Content="C" Grid.Row="3" Grid.Column="4" Command="{Binding ClearCommand}" Margin="2" MinHeight="30" Background="#E53935" Foreground="White"/>
+
+            <Button Content="4" Grid.Row="4" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="4" Margin="2" MinHeight="30"/>
+            <Button Content="5" Grid.Row="4" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="5" Margin="2" MinHeight="30"/>
+            <Button Content="6" Grid.Row="4" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="6" Margin="2" MinHeight="30"/>
+            <Button Content="*" Grid.Row="4" Grid.Column="3" Command="{Binding OperationCommand}" CommandParameter="*" Margin="2" MinHeight="30" Background="#4CAF50" Foreground="White"/>
+            <Button Content="=" Grid.Row="4" Grid.Column="4" Command="{Binding EqualsCommand}" Margin="2" MinHeight="30" Background="#1E88E5" Foreground="White"/>
+
+            <Button Content="1" Grid.Row="5" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="1" Margin="2" MinHeight="30"/>
+            <Button Content="2" Grid.Row="5" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="2" Margin="2" MinHeight="30"/>
+            <Button Content="3" Grid.Row="5" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="3" Margin="2" MinHeight="30"/>
+            <Button Content="-" Grid.Row="5" Grid.Column="3" Command="{Binding OperationCommand}" CommandParameter="-" Margin="2" MinHeight="30" Background="#4CAF50" Foreground="White"/>
+            <Button Content="+" Grid.Row="5" Grid.Column="4" Command="{Binding OperationCommand}" CommandParameter="+" Margin="2" MinHeight="30" Background="#4CAF50" Foreground="White"/>
+        </Grid>
+    </Grid>
+</UserControl>
