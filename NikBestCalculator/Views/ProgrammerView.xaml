@@ -7,27 +7,24 @@
             <Setter Property="MinHeight" Value="35"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Background" Value="#F0F0F0"/>
-            <Setter Property="BorderBrush" Value="#CCC"/>
-            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </UserControl.Resources>
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>   <!-- 0: Переключение систем -->
-            <RowDefinition Height="Auto"/>   <!-- 1: Дисплей -->
-            <RowDefinition Height="Auto"/>   <!-- 2: История -->
-            <RowDefinition Height="Auto"/>   <!-- 3: Кнопки управления историей -->
-            <RowDefinition Height="*"/>      <!-- 4: Кнопки калькулятора -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- 0: Переключение систем счисления -->
+        <!-- 0: Переключение систем счисления (ОРАНЖЕВЫЕ) -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-            <Button Content="DEC" Width="60" Command="{Binding SetDecimalCommand}" Margin="2"/>
-            <Button Content="HEX" Width="60" Command="{Binding SetHexCommand}" Margin="2"/>
-            <Button Content="BIN" Width="60" Command="{Binding SetBinaryCommand}" Margin="2"/>
-            <Button Content="OCT" Width="60" Command="{Binding SetOctalCommand}" Margin="2"/>
+            <Button Content="DEC" Width="60" Command="{Binding SetDecimalCommand}" Margin="2" Background="#E65100" Foreground="White"/>
+            <Button Content="HEX" Width="60" Command="{Binding SetHexCommand}" Margin="2" Background="#E65100" Foreground="White"/>
+            <Button Content="BIN" Width="60" Command="{Binding SetBinaryCommand}" Margin="2" Background="#E65100" Foreground="White"/>
+            <Button Content="OCT" Width="60" Command="{Binding SetOctalCommand}" Margin="2" Background="#E65100" Foreground="White"/>
         </StackPanel>
 
         <!-- 1: Дисплей -->
@@ -84,30 +81,35 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="AND" Grid.Row="0" Grid.Column="0" Command="{Binding AndCommand}" Margin="2" MinHeight="30"/>
-            <Button Content="OR" Grid.Row="0" Grid.Column="1" Command="{Binding OrCommand}" Margin="2" MinHeight="30"/>
-            <Button Content="XOR" Grid.Row="0" Grid.Column="2" Command="{Binding XorCommand}" Margin="2" MinHeight="30"/>
-            <Button Content="NOT" Grid.Row="0" Grid.Column="3" Command="{Binding NotCommand}" Margin="2" MinHeight="30"/>
+            <!-- Побитовые операции (ОРАНЖЕВЫЕ) -->
+            <Button Content="AND" Grid.Row="0" Grid.Column="0" Command="{Binding AndCommand}" Margin="2" MinHeight="30" Background="#E65100" Foreground="White"/>
+            <Button Content="OR" Grid.Row="0" Grid.Column="1" Command="{Binding OrCommand}" Margin="2" MinHeight="30" Background="#E65100" Foreground="White"/>
+            <Button Content="XOR" Grid.Row="0" Grid.Column="2" Command="{Binding XorCommand}" Margin="2" MinHeight="30" Background="#E65100" Foreground="White"/>
+            <Button Content="NOT" Grid.Row="0" Grid.Column="3" Command="{Binding NotCommand}" Margin="2" MinHeight="30" Background="#E65100" Foreground="White"/>
 
-            <Button Content="&lt;&lt;" Grid.Row="1" Grid.Column="0" Command="{Binding LeftShiftCommand}" Margin="2" MinHeight="30"/>
-            <Button Content="&gt;&gt;" Grid.Row="1" Grid.Column="1" Command="{Binding RightShiftCommand}" Margin="2" MinHeight="30"/>
-            <Button Content="C" Grid.Row="1" Grid.Column="2" Command="{Binding ClearCommand}" Margin="2" MinHeight="30" Background="#E53935" Foreground="White"/>
-            <Button Content="=" Grid.Row="1" Grid.Column="3" Command="{Binding EqualsCommand}" Margin="2" MinHeight="30" Background="#1E88E5" Foreground="White"/>
+            <!-- Сдвиги (ОРАНЖЕВЫЕ) + C (КРАСНАЯ) + = (СИНЯЯ) -->
+            <Button Content="&lt;&lt;" Grid.Row="1" Grid.Column="0" Command="{Binding LeftShiftCommand}" Margin="2" MinHeight="30" Background="#E65100" Foreground="White"/>
+            <Button Content="&gt;&gt;" Grid.Row="1" Grid.Column="1" Command="{Binding RightShiftCommand}" Margin="2" MinHeight="30" Background="#E65100" Foreground="White"/>
+            <Button Content="C" Grid.Row="1" Grid.Column="2" Command="{Binding ClearCommand}" Margin="2" MinHeight="30" Background="#C62828" Foreground="White"/>
+            <Button Content="=" Grid.Row="1" Grid.Column="3" Command="{Binding EqualsCommand}" Margin="2" MinHeight="30" Background="#1565C0" Foreground="White"/>
 
-            <Button Content="A" Grid.Row="2" Grid.Column="0" Command="{Binding HexDigitCommand}" CommandParameter="A" Margin="2" MinHeight="30"/>
-            <Button Content="B" Grid.Row="2" Grid.Column="1" Command="{Binding HexDigitCommand}" CommandParameter="B" Margin="2" MinHeight="30"/>
-            <Button Content="C" Grid.Row="2" Grid.Column="2" Command="{Binding HexDigitCommand}" CommandParameter="C" Margin="2" MinHeight="30"/>
-            <Button Content="D" Grid.Row="2" Grid.Column="3" Command="{Binding HexDigitCommand}" CommandParameter="D" Margin="2" MinHeight="30"/>
+            <!-- HEX буквы (ЗЕЛЁНЫЕ) -->
+            <Button Content="A" Grid.Row="2" Grid.Column="0" Command="{Binding HexDigitCommand}" CommandParameter="A" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="B" Grid.Row="2" Grid.Column="1" Command="{Binding HexDigitCommand}" CommandParameter="B" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="C" Grid.Row="2" Grid.Column="2" Command="{Binding HexDigitCommand}" CommandParameter="C" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="D" Grid.Row="2" Grid.Column="3" Command="{Binding HexDigitCommand}" CommandParameter="D" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
 
-            <Button Content="E" Grid.Row="3" Grid.Column="0" Command="{Binding HexDigitCommand}" CommandParameter="E" Margin="2" MinHeight="30"/>
-            <Button Content="F" Grid.Row="3" Grid.Column="1" Command="{Binding HexDigitCommand}" CommandParameter="F" Margin="2" MinHeight="30"/>
-            <Button Content="7" Grid.Row="3" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="7" Margin="2" MinHeight="30"/>
-            <Button Content="8" Grid.Row="3" Grid.Column="3" Command="{Binding NumberCommand}" CommandParameter="8" Margin="2" MinHeight="30"/>
+            <!-- HEX буквы + цифры (ЗЕЛЁНЫЕ) -->
+            <Button Content="E" Grid.Row="3" Grid.Column="0" Command="{Binding HexDigitCommand}" CommandParameter="E" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="F" Grid.Row="3" Grid.Column="1" Command="{Binding HexDigitCommand}" CommandParameter="F" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="7" Grid.Row="3" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="7" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="8" Grid.Row="3" Grid.Column="3" Command="{Binding NumberCommand}" CommandParameter="8" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
 
-            <Button Content="9" Grid.Row="4" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="9" Margin="2" MinHeight="30"/>
-            <Button Content="0" Grid.Row="4" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="0" Margin="2" MinHeight="30"/>
-            <Button Content="1" Grid.Row="4" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="1" Margin="2" MinHeight="30"/>
-            <Button Content="2" Grid.Row="4" Grid.Column="3" Command="{Binding NumberCommand}" CommandParameter="2" Margin="2" MinHeight="30"/>
+            <!-- Цифры (ЗЕЛЁНЫЕ) -->
+            <Button Content="9" Grid.Row="4" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="9" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="0" Grid.Row="4" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="0" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="1" Grid.Row="4" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="1" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="2" Grid.Row="4" Grid.Column="3" Command="{Binding NumberCommand}" CommandParameter="2" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
         </Grid>
     </Grid>
 </UserControl>
