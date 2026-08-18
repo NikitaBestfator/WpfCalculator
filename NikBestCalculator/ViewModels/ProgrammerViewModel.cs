@@ -32,6 +32,7 @@ namespace NikBestCalculator.Views
             }
         }
 
+        // === Цифры ===
         public ICommand NumberCommand => new RelayCommand(parameter =>
         {
             string digit = parameter.ToString();
@@ -60,6 +61,7 @@ namespace NikBestCalculator.Views
             Display = _currentInput;
         });
 
+        // === HEX буквы ===
         public ICommand HexDigitCommand => new RelayCommand(parameter =>
         {
             string digit = parameter.ToString().ToUpper();
@@ -88,6 +90,7 @@ namespace NikBestCalculator.Views
             Display = _currentInput;
         });
 
+        // === Операции (AND, OR, XOR, NOT, сдвиги) — пока TODO ===
         public ICommand OperationCommand => new RelayCommand(parameter =>
         {
             string op = parameter.ToString();
@@ -100,6 +103,7 @@ namespace NikBestCalculator.Views
             _isNewInput = true;
         });
 
+        // === Равно ===
         public ICommand EqualsCommand => new RelayCommand(parameter =>
         {
             if (string.IsNullOrEmpty(_currentInput))
@@ -108,13 +112,43 @@ namespace NikBestCalculator.Views
                 return;
             }
 
-            long value = long.Parse(_currentInput);
-            History.Add($"{_currentInput} = результат");
-            _currentInput = value.ToString();
-            Display = _currentInput;
-            _isNewInput = true;
+            try
+            {
+                long value = 0;
+
+                if (_currentInput.StartsWith("0b", StringComparison.OrdinalIgnoreCase))
+                {
+                    string binary = _currentInput.Substring(2);
+                    value = Convert.ToInt64(binary, 2);
+                }
+                else if (_currentInput.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+                {
+                    string hex = _currentInput.Substring(2);
+                    value = Convert.ToInt64(hex, 16);
+                }
+                else if (_currentInput.StartsWith("0o", StringComparison.OrdinalIgnoreCase))
+                {
+                    string oct = _currentInput.Substring(2);
+                    value = Convert.ToInt64(oct, 8);
+                }
+                else
+                {
+                    value = long.Parse(_currentInput);
+                }
+
+                History.Add($"{_currentInput} = {value}");
+                _currentInput = value.ToString();
+                Display = _currentInput;
+                _isNewInput = true;
+            }
+            catch
+            {
+                Display = "Ошибка";
+                _currentInput = "";
+            }
         });
 
+        // === Очистка ===
         public ICommand ClearCommand => new RelayCommand(parameter =>
         {
             _currentInput = "";
@@ -124,13 +158,7 @@ namespace NikBestCalculator.Views
             Display = "0";
         });
 
-        public ICommand ClearHistoryCommand => new RelayCommand(p => History.Clear());
-        public ICommand RemoveHistoryItemCommand => new RelayCommand(p =>
-        {
-            if (p is string item)
-                History.Remove(item);
-        });
-
+        // === Системы счисления ===
         public ICommand SetDecimalCommand => new RelayCommand(p =>
         {
             _baseMode = 10;
@@ -147,6 +175,18 @@ namespace NikBestCalculator.Views
         {
             _baseMode = 2;
             ConvertCurrentInput();
+        });
+        
+        public ICommand BackspaceCommand => new RelayCommand(parameter =>
+        {
+            if (string.IsNullOrEmpty(_currentInput))
+                return;
+
+            _currentInput = _currentInput.Length > 1 
+                ? _currentInput.Substring(0, _currentInput.Length - 1) 
+                : "";
+
+            Display = string.IsNullOrEmpty(_currentInput) ? "0" : _currentInput;
         });
 
         public ICommand SetOctalCommand => new RelayCommand(p =>
@@ -171,9 +211,9 @@ namespace NikBestCalculator.Views
                 {
                     10 => value.ToString(),
                     16 => "0x" + value.ToString("X"),
-                    2  => "0b" + Convert.ToString(value, 2),
-                    8  => "0o" + Convert.ToString(value, 8),
-                    _  => value.ToString()
+                    2 => "0b" + Convert.ToString(value, 2),
+                    8 => "0o" + Convert.ToString(value, 8),
+                    _ => value.ToString()
                 };
                 Display = _currentInput;
             }
@@ -184,11 +224,21 @@ namespace NikBestCalculator.Views
             }
         }
 
+        // === Побитовые операции (пока заглушки) ===
+        // === Операции (AND, OR, XOR, NOT, сдвиги) — пока заглушки ===
         public ICommand AndCommand => new RelayCommand(p => { Display = "AND (TODO)"; });
         public ICommand OrCommand => new RelayCommand(p => { Display = "OR (TODO)"; });
         public ICommand XorCommand => new RelayCommand(p => { Display = "XOR (TODO)"; });
         public ICommand NotCommand => new RelayCommand(p => { Display = "NOT (TODO)"; });
         public ICommand LeftShiftCommand => new RelayCommand(p => { Display = "<< (TODO)"; });
         public ICommand RightShiftCommand => new RelayCommand(p => { Display = ">> (TODO)"; });
+
+        // === История ===
+        public ICommand ClearHistoryCommand => new RelayCommand(p => History.Clear());
+        public ICommand RemoveHistoryItemCommand => new RelayCommand(p =>
+        {
+            if (p is string item)
+                History.Remove(item);
+        });
     }
 }

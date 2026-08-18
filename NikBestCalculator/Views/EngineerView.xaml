@@ -5,9 +5,10 @@
         <Style TargetType="Button">
             <Setter Property="Margin" Value="2"/>
             <Setter Property="MinHeight" Value="35"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="BorderBrush" Value="#CCC"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -24,11 +25,11 @@
         <!-- Дисплей -->
         <TextBox FontSize="28" FontWeight="Bold" HorizontalContentAlignment="Right" 
                  VerticalContentAlignment="Center" Height="50" Margin="0,0,0,5"
-                 IsReadOnly="True" Text="{Binding Display}"/>
+                 IsReadOnly="True" Text="{Binding Display}" Background="White" Foreground="Black"/>
 
-        <!-- ИСТОРИЯ -->
+        <!-- История -->
         <Border Grid.Row="1" Height="80" Margin="0,0,0,5"
-                Background="#F5F5F5" BorderBrush="#CCC" BorderThickness="1" CornerRadius="4">
+                Background="White" BorderBrush="#CCC" BorderThickness="1" CornerRadius="4">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding History}">
                     <ItemsControl.ItemsPanel>
@@ -38,13 +39,8 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="#E0E0E0" 
-                                    CornerRadius="4" 
-                                    Margin="3" 
-                                    Padding="8,4"
-                                    BorderBrush="#AAA" 
-                                    BorderThickness="1"
-                                    MouseDown="HistoryItem_MouseDown">
+                            <Border Background="#F0F0F0" CornerRadius="4" Margin="3" Padding="8,4"
+                                    BorderBrush="#CCC" BorderThickness="1">
                                 <TextBlock Text="{Binding}" FontSize="12" Foreground="#333"/>
                             </Border>
                         </DataTemplate>
@@ -55,50 +51,69 @@
 
         <!-- Кнопки управления историей -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,8">
-            <Button Content="Очистить историю" Command="{Binding ClearHistoryCommand}" MinWidth="140" Height="28" Background="#E0E0E0" Padding="10,0"/>
+            <Button Content="Очистить историю" Command="{Binding ClearHistoryCommand}" MinWidth="140" Height="28" Background="#F0F0F0" Foreground="Black" Padding="10,0"/>
             <TextBlock Text="(двойной клик по записи — удалить)" Foreground="Gray" FontSize="11" VerticalAlignment="Center" Margin="10,0,0,0"/>
         </StackPanel>
 
-        <!-- Кнопки инженерного режима -->
+        <!-- ===== ИНЖЕНЕРНЫЕ КНОПКИ ===== -->
         <Grid Grid.Row="3">
-            <Grid.RowDefinitions><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
+            <!-- Row 0: Тригонометрия + константы -->
             <Button Content="sin" Grid.Row="0" Grid.Column="0" Command="{Binding SinCommand}" Margin="2" MinHeight="30"/>
             <Button Content="cos" Grid.Row="0" Grid.Column="1" Command="{Binding CosCommand}" Margin="2" MinHeight="30"/>
             <Button Content="tan" Grid.Row="0" Grid.Column="2" Command="{Binding TanCommand}" Margin="2" MinHeight="30"/>
             <Button Content="π" Grid.Row="0" Grid.Column="3" Command="{Binding PiCommand}" Margin="2" MinHeight="30"/>
             <Button Content="e" Grid.Row="0" Grid.Column="4" Command="{Binding ECommand}" Margin="2" MinHeight="30"/>
 
+            <!-- Row 1: Логарифмы + степени -->
             <Button Content="log" Grid.Row="1" Grid.Column="0" Command="{Binding LogCommand}" Margin="2" MinHeight="30"/>
             <Button Content="ln" Grid.Row="1" Grid.Column="1" Command="{Binding LnCommand}" Margin="2" MinHeight="30"/>
             <Button Content="x²" Grid.Row="1" Grid.Column="2" Command="{Binding SquareCommand}" Margin="2" MinHeight="30"/>
             <Button Content="x³" Grid.Row="1" Grid.Column="3" Command="{Binding CubeCommand}" Margin="2" MinHeight="30"/>
             <Button Content="x^y" Grid.Row="1" Grid.Column="4" Command="{Binding PowerCommand}" Margin="2" MinHeight="30"/>
 
+            <!-- Row 2: Дополнительные операции + скобки + Backspace -->
             <Button Content="!" Grid.Row="2" Grid.Column="0" Command="{Binding FactorialCommand}" Margin="2" MinHeight="30"/>
             <Button Content="1/x" Grid.Row="2" Grid.Column="1" Command="{Binding InvertCommand}" Margin="2" MinHeight="30"/>
             <Button Content="√" Grid.Row="2" Grid.Column="2" Command="{Binding SqrtCommand}" Margin="2" MinHeight="30"/>
+            <Button Content="(" Grid.Row="2" Grid.Column="3" Command="{Binding LeftBracketCommand}" Margin="2" MinHeight="30"/>
+            <Button Content=")" Grid.Row="2" Grid.Column="4" Command="{Binding RightBracketCommand}" Margin="2" MinHeight="30"/>
 
+            <!-- Row 3: Цифры 7, 8, 9, /, * -->
             <Button Content="7" Grid.Row="3" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="7" Margin="2" MinHeight="30"/>
             <Button Content="8" Grid.Row="3" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="8" Margin="2" MinHeight="30"/>
             <Button Content="9" Grid.Row="3" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="9" Margin="2" MinHeight="30"/>
-            <Button Content="/" Grid.Row="3" Grid.Column="3" Command="{Binding OperationCommand}" CommandParameter="/" Margin="2" MinHeight="30" Background="#4CAF50" Foreground="White"/>
-            <Button Content="C" Grid.Row="3" Grid.Column="4" Command="{Binding ClearCommand}" Margin="2" MinHeight="30" Background="#E53935" Foreground="White"/>
+            <Button Content="/" Grid.Row="3" Grid.Column="3" Command="{Binding OperationCommand}" CommandParameter="/" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="*" Grid.Row="3" Grid.Column="4" Command="{Binding OperationCommand}" CommandParameter="*" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
 
+            <!-- Row 4: Цифры 4, 5, 6, -, + -->
             <Button Content="4" Grid.Row="4" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="4" Margin="2" MinHeight="30"/>
             <Button Content="5" Grid.Row="4" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="5" Margin="2" MinHeight="30"/>
             <Button Content="6" Grid.Row="4" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="6" Margin="2" MinHeight="30"/>
-            <Button Content="*" Grid.Row="4" Grid.Column="3" Command="{Binding OperationCommand}" CommandParameter="*" Margin="2" MinHeight="30" Background="#4CAF50" Foreground="White"/>
-            <Button Content="=" Grid.Row="4" Grid.Column="4" Command="{Binding EqualsCommand}" Margin="2" MinHeight="30" Background="#1E88E5" Foreground="White"/>
+            <Button Content="-" Grid.Row="4" Grid.Column="3" Command="{Binding OperationCommand}" CommandParameter="-" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
+            <Button Content="+" Grid.Row="4" Grid.Column="4" Command="{Binding OperationCommand}" CommandParameter="+" Margin="2" MinHeight="30" Background="#2E7D32" Foreground="White"/>
 
-            <Button Content="1" Grid.Row="5" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="1" Margin="2" MinHeight="30"/>
-            <Button Content="2" Grid.Row="5" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="2" Margin="2" MinHeight="30"/>
-            <Button Content="3" Grid.Row="5" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="3" Margin="2" MinHeight="30"/>
-            <Button Content="-" Grid.Row="5" Grid.Column="3" Command="{Binding OperationCommand}" CommandParameter="-" Margin="2" MinHeight="30" Background="#4CAF50" Foreground="White"/>
-            <Button Content="+" Grid.Row="5" Grid.Column="4" Command="{Binding OperationCommand}" CommandParameter="+" Margin="2" MinHeight="30" Background="#4CAF50" Foreground="White"/>
+            <!-- Row 5: Цифры 0, 1, 2, 3, = -->
+            <Button Content="0" Grid.Row="5" Grid.Column="0" Command="{Binding NumberCommand}" CommandParameter="0" Margin="2" MinHeight="30"/>
+            <Button Content="1" Grid.Row="5" Grid.Column="1" Command="{Binding NumberCommand}" CommandParameter="1" Margin="2" MinHeight="30"/>
+            <Button Content="2" Grid.Row="5" Grid.Column="2" Command="{Binding NumberCommand}" CommandParameter="2" Margin="2" MinHeight="30"/>
+            <Button Content="3" Grid.Row="5" Grid.Column="3" Command="{Binding NumberCommand}" CommandParameter="3" Margin="2" MinHeight="30"/>
+            <Button Content="=" Grid.Row="5" Grid.Column="4" Command="{Binding EqualsCommand}" Margin="2" MinHeight="30" Background="#1565C0" Foreground="White"/>
         </Grid>
     </Grid>
 </UserControl>

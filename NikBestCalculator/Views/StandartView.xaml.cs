@@ -47,6 +47,11 @@ namespace NikBestCalculator.Views
                 // ============================
                 // 4. ОЧИСТКА (Backspace, Escape)
                 // ============================
+                else if (e.Key == Key.Back || e.Key == Key.Delete)
+                {
+                    vm.BackspaceCommand.Execute(null);
+                    e.Handled = true;
+                }
                 else if (e.Key == Key.Back || e.Key == Key.Escape)
                     vm.ClearCommand.Execute(null);
             };

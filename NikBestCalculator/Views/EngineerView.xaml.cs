@@ -35,6 +35,11 @@ namespace NikBestCalculator.Views
                 else if (e.Key == Key.Divide) vm.OperationCommand.Execute("/");
                 else if (e.Key == Key.Back || e.Key == Key.Escape)
                     vm.ClearCommand.Execute(null);
+                else if (e.Key == Key.Back || e.Key == Key.Delete)
+                {
+                    vm.BackspaceCommand.Execute(null);
+                    e.Handled = true;
+                }
             };
         }
         private void HistoryItem_MouseDown(object sender, MouseButtonEventArgs e)
